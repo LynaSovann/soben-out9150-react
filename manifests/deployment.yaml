@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soben-out9150-react-deployment
+  labels:
+    app: soben-out9150-react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soben-out9150-react
+  template:
+    metadata:
+      labels:
+        app: soben-out9150-react
+    spec:
+      containers:
+        - name: soben-out9150-react-container
+          image: pipejet/soben-out9150-react:latest
+          ports:
+            - containerPort: 3000
