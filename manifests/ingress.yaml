@@ -1,0 +1,30 @@
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: soben-out9150-react-https-ingress
+   namespace: soben-out9150-react
+   annotations:
+     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+     nginx.ingress.kubernetes.io/use-regex: "true"
+     nginx.ingress.kubernetes.io/proxy-body-size: "5g"    
+     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+     nginx.ingress.kubernetes.io/rewrite-target: /
+ spec:
+   ingressClassName: nginx
+   tls:
+     - hosts:
+         - soben-out9150-react.assessify.org
+       secretName: soben-out9150-react-secret-tls
+   rules:
+     - host: soben-out9150-react.assessify.org
+       http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: soben-out9150-react-service
+                 port:
+                   number: 8288
+ 
